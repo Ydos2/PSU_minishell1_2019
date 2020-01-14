@@ -15,7 +15,6 @@ SRC     =	src/initialise.c				\
 			src/env.c						\
 			src/unsetenv.c					\
 			src/setenv.c					\
-			src/my_str_to_wordtab.c			\
 
 OBJ     =	$(SRC:.c=.o) 			\
 

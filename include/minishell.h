@@ -29,10 +29,14 @@ mini_t *initialise_var_start(mini_t *mini);
 int minishell(int argc, char **argv, mini_t *mini, char **envp);
 int shell(char **argv, mini_t *mini, char **envp);
 int get_argument(mini_t *mini, char *line, char **envp);
+void set_other_command(mini_t *mini, char *line, char **envp);
+void set_command_not_find(char *line);
 
 // toold_fonction.c
 int my_strcmpp(char const *s1, char const *s2);
 char *len_str(char *str);
+int my_putstr(char const *str);
+void my_putchar(char c);
 
 // cd.c
 int cd(char *line);
@@ -51,10 +55,5 @@ int setenvv(char *line);
 
 // unsetenv.c
 int unsetenvv(char *line);
-
-// my_str_to_wordtab.c
-int count_word(char *str);
-int countchar(char *str);
-char **my_str_to_wordtab(char *str);
 
 #endif /* !LS_H_ */

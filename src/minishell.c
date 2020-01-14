@@ -30,7 +30,6 @@ int shell(char **argv, mini_t *mini, char **envp)
 
 int get_argument(mini_t *mini, char *line, char **envp)
 {
-    char *path = NULL;
     int i = 0;
 
     if ((my_strcmpp(line, "exit")) == 0)
@@ -45,7 +44,23 @@ int get_argument(mini_t *mini, char *line, char **envp)
         i = envv(line);
     if (i == 1)
         return (0);
-    path = set_path(line, envp, mini);
-    set_unix(mini, path, envp);
+    set_other_command(mini, line, envp);
     return (0);
+}
+
+void set_other_command(mini_t *mini, char *line, char **envp)
+{
+    char *path = NULL;
+
+    path = set_path(line, envp, mini);
+    if (path != NULL)
+        set_unix(mini, path, envp);
+    else
+        set_command_not_find(line);
+}
+
+void set_command_not_find(char *line)
+{
+    my_putstr(line);
+    write(1, ": Command not found.\n", 21);
 }

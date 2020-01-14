@@ -33,3 +33,17 @@ char *len_str(char *str)
         len_str[j] = str[j];
     return (len_str);
 }
+
+int my_putstr(char const *str)
+{
+    char i = 0;
+
+    for (; str[i] != '\0'; i++)
+        my_putchar(str[i]);
+    return (0);
+}
+
+void my_putchar(char c)
+{
+    write(1, &c, 1);
+}
