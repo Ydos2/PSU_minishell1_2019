@@ -40,7 +40,7 @@ char *get_path(char *line);
 int set_unix(mini_t *mini, char *line, char **envp);
 
 // env.c
-char *set_path(char *line);
+char *set_path(char *line, char **envp);
 int envv(char *line);
 
 // setenv.c
@@ -48,5 +48,10 @@ int setenvv(char *line);
 
 // unsetenv.c
 int unsetenvv(char *line);
+
+// my_str_to_wordtab.c
+int count_word(char *str);
+int countchar(char *str);
+char **my_str_to_wordtab(char *str);
 
 #endif /* !LS_H_ */

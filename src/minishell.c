@@ -44,7 +44,7 @@ int get_argument(mini_t *mini, char *line, char **envp)
         i = envv(line);
     if (i == 1)
         return (0);
-    path = set_path(line);
+    path = set_path(line, envp);
     set_unix(mini, path, envp);
     return (0);
 }

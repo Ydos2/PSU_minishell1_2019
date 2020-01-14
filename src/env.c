@@ -8,9 +8,10 @@
 #include "my.h"
 #include "minishell.h"
 
-char *set_path(char *line)
+char *set_path(char *line, char **envp)
 {
     char *path = "/bin/ls";
+
     return (path);
 }
 

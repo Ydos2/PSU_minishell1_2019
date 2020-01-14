@@ -10,9 +10,13 @@
 
 int cd(char *line)
 {
+    int a = 0;
     char *path;
 
     path = get_path(line);
+    a = chdir(path);
+    if (a != -1)
+        getcwd(path, 255);
     return (1);
 }
 
