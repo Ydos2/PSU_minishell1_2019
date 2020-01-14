@@ -21,6 +21,7 @@ int shell(char **argv, mini_t *mini, char **envp)
     char *line;
     size_t len = 0;
 
+    write(1, "▀▄▀▄▀▄ Minishell ▄▀▄▀▄▀> ", 49);
     getline(&line, &len, stdin);
     line = len_str(line);
     get_argument(mini, line, envp);
@@ -44,7 +45,7 @@ int get_argument(mini_t *mini, char *line, char **envp)
         i = envv(line);
     if (i == 1)
         return (0);
-    path = set_path(line, envp);
+    path = set_path(line, envp, mini);
     set_unix(mini, path, envp);
     return (0);
 }

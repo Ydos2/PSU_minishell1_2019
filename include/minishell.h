@@ -18,6 +18,8 @@
 typedef struct mini
 {
     int quit;
+    int i;
+    int j;
 } mini_t;
 
 // initialise.c
@@ -40,7 +42,8 @@ char *get_path(char *line);
 int set_unix(mini_t *mini, char *line, char **envp);
 
 // env.c
-char *set_path(char *line, char **envp);
+char *set_path(char *line, char **envp, mini_t *mini);
+char *set_test_path(char **envp, char *line, int k, mini_t *mini);
 int envv(char *line);
 
 // setenv.c
