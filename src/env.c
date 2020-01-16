@@ -54,7 +54,11 @@ char *set_test_path(char **envp, char *line, int k, mini_t *mini)
         return (NULL);
 }
 
-int envv(char *line)
+int envv(char **envp)
 {
+    for (int i = 0; envp[i] != NULL; i++) {
+        my_putstr(envp[i]);
+        write(1, "\n", 1);
+    }
     return (1);
 }

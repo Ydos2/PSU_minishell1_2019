@@ -7,14 +7,19 @@
 
 CC        =    gcc
 
-SRC     =	src/initialise.c				\
-			src/minishell.c					\
-			src/tools_function.c			\
-			src/cd.c						\
-			src/unix_argument.c				\
-			src/env.c						\
-			src/unsetenv.c					\
-			src/setenv.c					\
+SRC     =	src/initialise.c										\
+			src/minishell.c											\
+			src/tools_function.c									\
+			src/cd.c												\
+			src/unix_argument.c										\
+			src/env.c												\
+			src/unsetenv.c											\
+			src/setenv.c											\
+			src/signal.c											\
+			src/my_str_to_word_array/my_str_to_word_array.c			\
+			src/my_str_to_word_array/my_str_cat_malloc.c			\
+			src/my_str_to_word_array/my_memset.c					\
+			src/my_str_to_word_array/clear_str.c					\
 
 OBJ     =	$(SRC:.c=.o) 			\
 

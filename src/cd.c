@@ -8,12 +8,15 @@
 #include "my.h"
 #include "minishell.h"
 
-int cd(char *line)
+int cd(char *line, char **envp)
 {
     int a = 0;
     char *path;
 
-    path = get_path(line);
+    if (line[3] == '\0')
+        path = get_cd_solo(line, envp);
+    else
+        path = get_path(line);
     a = chdir(path);
     if (a != -1)
         getcwd(path, 255);
@@ -35,5 +38,25 @@ char *get_path(char *line)
             path[j] = line[k];
             j++;
         }
+    return (path);
+}
+
+char *get_cd_solo(char *line, char **envp)
+{
+    char *path;
+    int i = 0;
+    int j = 0;
+    int k = 0;
+
+    for (i = 0; envp[i] != NULL; i++) {
+        if (envp[i][0] == 'H' && envp[i][1] == 'O' &&
+        envp[i][2] == 'M' && envp[i][3] == 'E' &&
+        envp[i][4] == '=')
+            break;
+    }
+    for (j = 0; envp[i][j] != '\0'; j++);
+    path = malloc(sizeof(char) * j);
+    for (j = 0, k = 5; envp[i][k] != '\0'; j++, k++)
+        path[j] = envp[i][k];
     return (path);
 }
