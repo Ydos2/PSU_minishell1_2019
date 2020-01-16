@@ -8,7 +8,7 @@
 #include "my.h"
 #include "minishell.h"
 
-int unsetenvv(char *line)
+int initialise_unsetenvv(char *line)
 {
     return (1);
 }

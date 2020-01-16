@@ -22,7 +22,7 @@ int my_strcmpp(char const *s1, char const *s2)
         return (0);
 }
 
-char *len_str(char *str)
+char *my_len_str(char *str)
 {
     char *len_str;
     int i = 0;

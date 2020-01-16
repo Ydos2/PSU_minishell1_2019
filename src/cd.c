@@ -8,7 +8,7 @@
 #include "my.h"
 #include "minishell.h"
 
-int cd(char *line, char **envp)
+int initialise_cd(char *line, char **envp)
 {
     int a = 0;
     char *path;

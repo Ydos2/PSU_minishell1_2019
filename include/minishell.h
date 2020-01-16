@@ -27,20 +27,20 @@ typedef struct mini
 mini_t *initialise_var_start(mini_t *mini);
 
 // minishell.c
-int minishell(int argc, char **argv, mini_t *mini, char **envp);
-int shell(char **argv, mini_t *mini, char **envp);
+int initialise_minishell(int argc, char **argv, mini_t *mini, char **envp);
+int initialise_shell(char **argv, mini_t *mini, char **envp);
 int get_argument(mini_t *mini, char *line, char **envp);
 void set_other_command(mini_t *mini, char *line, char **envp);
 void set_command_not_find(char *line);
 
 // toold_fonction.c
 int my_strcmpp(char const *s1, char const *s2);
-char *len_str(char *str);
+char *my_len_str(char *str);
 int my_putstr(char const *str);
 void my_putchar(char c);
 
 // cd.c
-int cd(char *line, char **envp);
+int initialise_cd(char *line, char **envp);
 char *get_path(char *line);
 char *get_cd_solo(char *line, char **envp);
 
@@ -51,13 +51,13 @@ char *get_unix_arg(mini_t *mini, char *line);
 // env.c
 char *set_path(char *line, char **envp, mini_t *mini);
 char *set_test_path(char **envp, char *line, int k, mini_t *mini);
-int envv(char **envp);
+int initialise_envv(char **envp);
 
 // setenv.c
-int setenvv(char *line);
+int initialise_setenvv(char *line);
 
 // unsetenv.c
-int unsetenvv(char *line);
+int initialise_unsetenvv(char *line);
 
 // signal.c
 void signalHandler(int signalValue);

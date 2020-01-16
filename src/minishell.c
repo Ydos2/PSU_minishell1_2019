@@ -8,17 +8,17 @@
 #include "my.h"
 #include "minishell.h"
 
-int minishell(int argc, char **argv, mini_t *mini, char **envp)
+int initialise_minishell(int argc, char **argv, mini_t *mini, char **envp)
 {
     signal(SIGINT, signalHandler);
 
     while (mini->quit == 0) {
-        shell(argv, mini, envp);
+        initialise_shell(argv, mini, envp);
     }
     return (0);
 }
 
-int shell(char **argv, mini_t *mini, char **envp)
+int initialise_shell(char **argv, mini_t *mini, char **envp)
 {
     char *line;
     size_t len = 0;
@@ -28,7 +28,7 @@ int shell(char **argv, mini_t *mini, char **envp)
         mini->quit = 1;
         return (0);
     }
-    line = len_str(line);
+    line = my_len_str(line);
     get_argument(mini, line, envp);
     return (0);
 }
@@ -40,13 +40,13 @@ int get_argument(mini_t *mini, char *line, char **envp)
     if ((my_strcmpp(line, "exit")) == 0)
         mini->quit = 1, i = 1;
     if (line[0] == 'c' && line[1] == 'd')
-        i = cd(line, envp);
+        i = initialise_cd(line, envp);
     if ((my_strcmpp(line, "setenv")) == 0)
-        i = setenvv(line);
+        i = initialise_setenvv(line);
     if ((my_strcmpp(line, "unsetenv")) == 0)
-        i = unsetenvv(line);
+        i = initialise_unsetenvv(line);
     if ((my_strcmpp(line, "env")) == 0)
-        i = envv(envp);
+        i = initialise_envv(envp);
     if (i == 1)
         return (0);
     set_other_command(mini, line, envp);
