@@ -18,6 +18,7 @@
 typedef struct mini
 {
     int quit;
+    int ret_nbr;
     int i;
     int j;
     char **flag;
@@ -25,6 +26,7 @@ typedef struct mini
 
 // initialise.c
 mini_t *initialise_var_start(mini_t *mini);
+int set_exit(mini_t *mini, char *line);
 
 // minishell.c
 int initialise_minishell(int argc, char **argv, mini_t *mini, char **envp);

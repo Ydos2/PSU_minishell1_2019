@@ -17,5 +17,5 @@ int main (int argc, char **argv, char **envp)
     mini = initialise_var_start(mini);
     if (initialise_minishell(argc, argv, mini, envp) == 84)
         return (84);
-    return (0);
+    return (mini->ret_nbr);
 }
