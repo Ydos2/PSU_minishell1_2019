@@ -62,14 +62,14 @@ int initialise_setenvv(char *line);
 int initialise_unsetenvv(char *line);
 
 // signal.c
-void signalHandler(int signalValue);
+void set_signal_Handler(int signalValue);
 
 // my_str_to_word_array.c
 char **my_str_to_word_array(char *str);
-void free_and_set(char **array, int offset, char *to_free);
-void attribute_line(char *buffer, char **array, int *k, int *array_nb);
+void my_free_and_set(char **array, int offset, char *to_free);
+void my_attribute_line(char *buffer, char **array, int *k, int *array_nb);
 int my_strlen_word(char *str, int *cursor);
-int count_word(char *str);
+int my_count_word(char *str);
 
 // my_str_cat_malloc.c
 int my_strlen_protect(char *str);
@@ -79,9 +79,9 @@ char *my_strcat_malloc(char *dest, char *src);
 void my_memset(char *buffer, int size);
 
 // clear_str.c
-char *clear_begin(char *str);
-char *clear_space(char *str);
-char *clear_str(char *str);
+char *my_clear_begin(char *str);
+char *my_clear_space(char *str);
+char *my_clear_str(char *str);
 int my_strlen(char const *str);
 
 #endif /* !LS_H_ */

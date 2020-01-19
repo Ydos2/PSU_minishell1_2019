@@ -18,8 +18,10 @@ int initialise_cd(char *line, char **envp)
     else
         path = get_path(line);
     a = chdir(path);
-    if (a != -1)
-        getcwd(path, 255);
+    if (a == -1) {
+        my_putstr(path);
+        write(1, ": No such file or directory.\n", 29);
+    }
     return (1);
 }
 

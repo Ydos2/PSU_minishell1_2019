@@ -22,12 +22,14 @@ int set_exit(mini_t *mini, char *line)
     int nbr = 1;
     int actu_nbr = 0;
 
-    mini->quit = 1;
-    for (int i = 0; flag[1][i+1] != '\0'; nbr = nbr * 10, i++);
-    for (int i = 0, j = nbr; flag[1][i] != '\0'; i++) {
-        actu_nbr = (flag[1][i] - 48) * j;
-        mini->ret_nbr += actu_nbr;
-        j = j / 10;
+    if (flag[1] != NULL) {
+        for (int i = 0; flag[1][i+1] != '\0'; nbr = nbr * 10, i++);
+        for (int i = 0, j = nbr; flag[1][i] != '\0'; i++) {
+            actu_nbr = (flag[1][i] - 48) * j;
+            mini->ret_nbr += actu_nbr;
+            j = j / 10;
+        }
     }
+    mini->quit = 1;
     return (1);
 }

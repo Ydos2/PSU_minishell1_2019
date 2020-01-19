@@ -10,10 +10,12 @@
 
 int initialise_minishell(int argc, char **argv, mini_t *mini, char **envp)
 {
-    signal(SIGINT, signalHandler);
+    signal(SIGINT, set_signal_Handler);
 
-    while (mini->quit == 0) {
+    while (1) {
         initialise_shell(argv, mini, envp);
+        if (mini->quit != 0)
+            break;
     }
     return (0);
 }
@@ -22,12 +24,16 @@ int initialise_shell(char **argv, mini_t *mini, char **envp)
 {
     char *line;
     size_t len = 0;
+    int get = 0;
 
     write(1, "▀▄▀▄▀▄ Minishell ▄▀▄▀▄▀$> ", 50);
-    if (getline(&line, &len, stdin) == -1) {
+    get = getline(&line, &len, stdin);
+    if (get == -1) {
+        write(1, "\n", 1);
         mini->quit = 1;
         return (0);
-    }
+    } else if (get < -1)
+        return (0);
     line = my_len_str(line);
     get_argument(mini, line, envp);
     return (0);
@@ -41,7 +47,8 @@ int get_argument(mini_t *mini, char *line, char **envp)
     line[2] == 'i' && line[3] == 't')
         i = set_exit(mini, line);
     if (line[0] == 'c' && line[1] == 'd')
-        i = initialise_cd(line, envp);
+        if (line[2] == ' ' || line[2] == '\0')
+            i = initialise_cd(line, envp);
     if ((my_strcmpp(line, "setenv")) == 0)
         i = initialise_setenvv(line);
     if ((my_strcmpp(line, "unsetenv")) == 0)
@@ -58,13 +65,15 @@ void set_other_command(mini_t *mini, char *line, char **envp)
 {
     char *path = NULL;
 
-    mini->flag = my_str_to_word_array(line);
-    line = get_unix_arg(mini, line);
-    path = set_path(line, envp, mini);
-    if (path != NULL)
-        set_unix(mini, path, envp);
-    else
-        set_command_not_find(line);
+    if (line[0] != '\0') {
+        mini->flag = my_str_to_word_array(line);
+        line = get_unix_arg(mini, line);
+        path = set_path(line, envp, mini);
+        if (path != NULL)
+            set_unix(mini, path, envp);
+        else
+            set_command_not_find(line);
+    }
 }
 
 void set_command_not_find(char *line)

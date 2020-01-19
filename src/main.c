@@ -8,7 +8,7 @@
 #include "my.h"
 #include "minishell.h"
 
-int main (int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
     mini_t *mini = NULL;
 
@@ -17,5 +17,6 @@ int main (int argc, char **argv, char **envp)
     mini = initialise_var_start(mini);
     if (initialise_minishell(argc, argv, mini, envp) == 84)
         return (84);
+    write(1, "exit\n", 5);
     return (mini->ret_nbr);
 }

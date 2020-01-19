@@ -8,7 +8,7 @@
 #include "my.h"
 #include "minishell.h"
 
-char *clear_begin(char *str)
+char *my_clear_begin(char *str)
 {
     int i = 0;
 
@@ -19,7 +19,7 @@ char *clear_begin(char *str)
     }
 }
 
-char *clear_space(char *str)
+char *my_clear_space(char *str)
 {
     int i = 0;
     int j = 0;
@@ -42,7 +42,7 @@ char *clear_space(char *str)
     return (clear);
 }
 
-char *clear_str(char *str)
+char *my_clear_str(char *str)
 {
     int i = 0;
     char *clear;
@@ -52,8 +52,8 @@ char *clear_str(char *str)
             str[i] = ' ';
         i++;
     }
-    str = clear_begin(str);
-    clear = clear_space(str);
+    str = my_clear_begin(str);
+    clear = my_clear_space(str);
     return (clear);
 }
 
