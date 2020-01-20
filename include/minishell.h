@@ -49,6 +49,7 @@ char *get_cd_solo(char *line, char **envp);
 // unix_argument.c
 int set_unix(mini_t *mini, char *line, char **envp);
 char *get_unix_arg(mini_t *mini, char *line);
+void set_binarie(mini_t *mini, char *line, char **envp);
 
 // env.c
 char *set_path(char *line, char **envp, mini_t *mini);
@@ -59,7 +60,7 @@ int initialise_envv(char **envp);
 int initialise_setenvv(char *line);
 
 // unsetenv.c
-int initialise_unsetenvv(char *line);
+int initialise_unsetenvv(char *line, char **envp);
 
 // signal.c
 void set_signal_Handler(int signalValue);

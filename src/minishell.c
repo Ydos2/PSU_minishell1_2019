@@ -51,8 +51,10 @@ int get_argument(mini_t *mini, char *line, char **envp)
             i = initialise_cd(line, envp);
     if ((my_strcmpp(line, "setenv")) == 0)
         i = initialise_setenvv(line);
-    if ((my_strcmpp(line, "unsetenv")) == 0)
-        i = initialise_unsetenvv(line);
+    if (line[0] == 'u' && line[1] == 'n' && line[2] == 's'
+    && line[3] == 'e' && line[4] == 't' && line[5] == 'e'
+    && line[6] == 'n' && line[7] == 'v')
+        i = initialise_unsetenvv(line, envp);
     if ((my_strcmpp(line, "env")) == 0)
         i = initialise_envv(envp);
     if (i == 1)
@@ -65,7 +67,10 @@ void set_other_command(mini_t *mini, char *line, char **envp)
 {
     char *path = NULL;
 
-    if (line[0] != '\0') {
+    if (line[0] == '.' && line[1] == '/') {
+        path = set_path(line, envp, mini);
+        set_binarie(mini, path, envp);
+    } else if (line[0] != '\0') {
         mini->flag = my_str_to_word_array(line);
         line = get_unix_arg(mini, line);
         path = set_path(line, envp, mini);

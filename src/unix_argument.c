@@ -40,3 +40,19 @@ char *get_unix_arg(mini_t *mini, char *line)
     }
     return (arg_line);
 }
+
+void set_binarie(mini_t *mini, char *line, char **envp)
+{
+    pid_t pid = 0;
+    pid_t j = 0;
+    int arg = 0;
+
+    pid = fork();
+    if (pid == 0)
+        execve(line, mini->flag, envp);
+    else if (pid > 0)
+        j = waitpid(pid, &arg, 0);
+    if (WIFSIGNALED(arg))
+        my_putstr(strsignal(WTERMSIG(arg)));
+    kill(pid, SIGKILL);
+}

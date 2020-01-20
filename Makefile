@@ -46,7 +46,7 @@ TEST_TARGET     =     unit_tests
 
 LDFLAGS     =     -lcriterion -lgcov --coverage
 
-all: $(TARGET)
+all: $(TARGET) ## Build the project
 
 $(TARGET): $(OBJ) $(MAIN_OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(MAIN_OBJ) -o $(TARGET)
@@ -54,20 +54,26 @@ $(TARGET): $(OBJ) $(MAIN_OBJ)
 %.o : %.c
 	$(CC) $(LDFLAGS) $(CFLAGS) -c $< -o $@
 
-clean:
+clean: ## Clean the useless file
 	rm -f $(OBJ) $(MAIN_OBJ) $(TEST_OBJ) $(COVERAGE)
 
-fclean: clean
+fclean: clean ## Clean the project
 	rm -f $(TARGET) $(TEST_TARGET)
 
-re:    fclean all
+re:    fclean all ## Clean then compile
 
-tests_build: $(OBJ) $(TEST_OBJ)
+tests_build: $(OBJ) $(TEST_OBJ) ## Build tests
 	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(TEST_OBJ) -o $(TEST_TARGET)
 
-tests_run:
+tests_run: ## Launch tests
 	$(CC) -o unit_tests $(LDFLAGS) $(SRC) $(TEST_SRC) $(CFLAGS)
 	./$(TEST_TARGET)
 	gcovr --exclude tests/
 
-re_tests: fclean tests_run
+re_tests: fclean tests_run ## Clean then tests
+
+valgrind: all ## Launch valgrind
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET)
+
+help: ## Help for the Makefile
+	@cat $(MAKEFILE_LIST) | sed -En 's/^([a-zA-Z_-]+)\s*:.*##\s?(.*)/\1 "\2"/p' | xargs printf "\033[36m%-30s\033[0m %s\n"
