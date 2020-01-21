@@ -28,6 +28,9 @@ typedef struct mini
     char **flag;
 } mini_t;
 
+// main.c
+void my_free_array(char **array);
+
 // initialise.c
 mini_t *initialise_var_start(mini_t *mini);
 int set_exit(mini_t *mini, char *line);
@@ -49,6 +52,7 @@ void my_putchar(char c);
 int initialise_cd(char *line, char **envp);
 char *get_path(char *line);
 char *get_cd_solo(char *line, char **envp);
+char *get_old_cd(char *line);
 
 // unix_argument.c
 int set_unix(mini_t *mini, char *line, char **envp);

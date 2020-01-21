@@ -21,7 +21,7 @@ int initialise_minishell(int argc, char **argv, mini_t *mini, char **envp)
 
 int initialise_shell(char **argv, mini_t *mini, char **envp)
 {
-    char *line;
+    char *line = NULL;
     size_t len = 0;
     int get = 0;
 
@@ -30,11 +30,15 @@ int initialise_shell(char **argv, mini_t *mini, char **envp)
     if (get == -1) {
         write(1, "\n", 1);
         mini->quit = 1;
+        free(line);
         return (0);
-    } else if (get < -1)
+    } else if (get < -1) {
+        free(line);
         return (0);
+    }
     line = my_len_str(line);
     get_argument(mini, line, envp);
+    free(line);
     return (0);
 }
 

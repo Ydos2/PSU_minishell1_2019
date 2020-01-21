@@ -82,8 +82,8 @@ tests_run: ## Launch tests
 
 re_tests: fclean tests_run ## Clean then tests
 
-valgrind: all ## Launch valgrind
-	@valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET)
+valgrind: fclean all ## Launch valgrind
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(TARGET)
 
 help: ## Help for the Makefile
 	@cat $(MAKEFILE_LIST) | sed -En 's/^([a-zA-Z_-]+)\s*:.*##\s?(.*)/\1 "\2"/p' | xargs printf "\033[32m%-30s\033[0m %s\n"

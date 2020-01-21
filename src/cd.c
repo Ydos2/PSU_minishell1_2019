@@ -14,6 +14,8 @@ int initialise_cd(char *line, char **envp)
 
     if (line[3] == '\0')
         path = get_cd_solo(line, envp);
+    else if (line[3] == '-')
+        path = get_old_cd(line);
     else
         path = get_path(line);
     a = chdir(path);
@@ -44,7 +46,7 @@ char *get_path(char *line)
 
 char *get_cd_solo(char *line, char **envp)
 {
-    char *path;
+    char *path = NULL;
     int i = 0;
     int j = 0;
     int k = 0;
@@ -60,4 +62,9 @@ char *get_cd_solo(char *line, char **envp)
     for (j = 0, k = 5; envp[i][k] != '\0'; j++, k++)
         path[j] = envp[i][k];
     return (path);
+}
+
+char *get_old_cd(char *line)
+{
+    return ("-");
 }

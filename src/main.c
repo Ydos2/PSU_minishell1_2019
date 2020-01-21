@@ -10,6 +10,7 @@
 int main(int argc, char **argv, char **envp)
 {
     mini_t *mini = NULL;
+    int quit_val = 0;
 
     if (argc != 1)
         return (84);
@@ -17,5 +18,16 @@ int main(int argc, char **argv, char **envp)
     if (initialise_minishell(argc, argv, mini, envp) == 84)
         return (84);
     write(1, "exit\n", 5);
-    return (mini->ret_nbr);
+    if (mini->flag != NULL)
+        my_free_array(mini->flag);
+    quit_val = mini->ret_nbr;
+    free(mini);
+    return (quit_val);
+}
+
+void my_free_array(char **array)
+{
+    for (int i = 0; array[i] != NULL; i++)
+        free(array[i]);
+    free(array);
 }
