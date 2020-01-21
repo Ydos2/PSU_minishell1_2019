@@ -20,6 +20,7 @@ SRC     =	src/initialise.c										\
 			src/my_str_to_word_array/my_str_cat_malloc.c			\
 			src/my_str_to_word_array/my_memset.c					\
 			src/my_str_to_word_array/clear_str.c					\
+			src/stock_env.c											\
 
 OBJ     =	$(SRC:.c=.o) 			\
 

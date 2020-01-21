@@ -26,6 +26,7 @@ typedef struct mini
     int i;
     int j;
     char **flag;
+    char **envp;
 } mini_t;
 
 // main.c
@@ -37,16 +38,17 @@ int set_exit(mini_t *mini, char *line);
 
 // minishell.c
 int initialise_minishell(int argc, char **argv, mini_t *mini, char **envp);
-int initialise_shell(char **argv, mini_t *mini, char **envp);
-int get_argument(mini_t *mini, char *line, char **envp);
+int initialise_shell(char **argv, mini_t *mini);
+int get_argument(mini_t *mini, char *line);
 void set_other_command(mini_t *mini, char *line, char **envp);
 void set_command_not_find(char *line);
 
-// toold_fonction.c
+// tools_fonction.c
 int my_strcmpp(char const *s1, char const *s2);
 char *my_len_str(char *str);
 int my_putstr(char const *str);
 void my_putchar(char c);
+int my_strcmp_equal(char *s1, char *s2);
 
 // cd.c
 int initialise_cd(char *line, char **envp);
@@ -65,10 +67,17 @@ char *set_test_path(char **envp, char *line, int k, mini_t *mini);
 int initialise_envv(char **envp);
 
 // setenv.c
-int initialise_setenvv(char *line);
+int initialise_setenvv(char *line, mini_t *mini);
+char *copy_str(char *str, char *copy, int *j);
+char **replace_this(char **env, char *path, char *replace, int *i);
+char **can_i_replace(char *path, char **env, char *replace);
 
 // unsetenv.c
-int initialise_unsetenvv(char *line, char **envp);
+int initialise_unsetenvv(char *line, char **envp, mini_t *mini);
+char *copy_norm(char *env, char *copy_env);
+char **copy_env_unset(char **env, char **copy_env, int i);
+char **my_unset(char **env, int i);
+char **can_i_remove(char **env, char *del);
 
 // signal.c
 void set_signal_Handler(int signalValue);
@@ -92,5 +101,11 @@ char *my_clear_begin(char *str);
 char *my_clear_space(char *str);
 char *my_clear_str(char *str);
 int my_strlen(char const *str);
+
+// stock_env.c
+char **norme_stock(char **env, char **copy_env);
+char **copy_line(char **copy_env, int i, char *str, char *path);
+char **new_line(char *str, char **copy_env, char *path, int i);
+char **stock_env(char **env, int size, char *str, char *path);
 
 #endif /* !LS_H_ */

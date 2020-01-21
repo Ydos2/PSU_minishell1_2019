@@ -7,7 +7,53 @@
 
 #include "minishell.h"
 
-int initialise_setenvv(char *line)
+int initialise_setenvv(char *line, mini_t *mini)
 {
+    char **array = NULL;
+
+    array = my_str_to_word_array(line);
+    mini->envp = can_i_replace(array[2], mini->envp, array[1]);
     return (1);
+}
+
+char *copy_str(char *str, char *copy, int *j)
+{
+    int k = 0;
+
+    while (copy != NULL && copy[k] != '\0') {
+        str[*j] = copy[k];
+        *j = *j + 1;
+        k++;
+    }
+    return (str);
+}
+
+char **replace_this(char **env, char *path, char *replace, int *i)
+{
+    int j = 0;
+
+    env[*i] = malloc(sizeof(char)
+    * (my_strlen(path) + 1 + my_strlen(replace) + 1));
+    env[*i] = copy_str(env[*i], path, &j);
+    env[*i][j] = '=';
+    j = j + 1;
+    env[*i] = copy_str(env[*i], replace, &j);
+    env[*i][j] = '\0';
+    return (env);
+}
+
+char **can_i_replace(char *path, char **env, char *replace)
+{
+    int	i = 0;
+
+    while (env[i] != NULL && my_strcmp_equal(replace, env[i]) != 1)
+    i++;
+    if (env[i] != NULL) {
+        env = replace_this(env, replace, path, &i);
+        return (env);
+    } else {
+        env = stock_env(env, 1, replace, path);
+        return (env);
+    }
+    return (0);
 }
