@@ -5,7 +5,6 @@
 ** cd
 */
 
-#include "my.h"
 #include "minishell.h"
 
 int initialise_cd(char *line, char **envp)

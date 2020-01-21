@@ -5,7 +5,6 @@
 ** unix_argument
 */
 
-#include "my.h"
 #include "minishell.h"
 
 int set_unix(mini_t *mini, char *path, char **envp)

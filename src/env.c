@@ -5,7 +5,6 @@
 ** env
 */
 
-#include "my.h"
 #include "minishell.h"
 
 char *set_path(char *line, char **envp, mini_t *mini)

@@ -5,7 +5,6 @@
 ** my_str_to_word_array
 */
 
-#include "my.h"
 #include "minishell.h"
 
 int my_count_word(char *str)

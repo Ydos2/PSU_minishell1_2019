@@ -5,7 +5,6 @@
 ** minishell
 */
 
-#include "my.h"
 #include "minishell.h"
 
 int initialise_minishell(int argc, char **argv, mini_t *mini, char **envp)

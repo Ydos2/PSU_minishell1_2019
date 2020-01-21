@@ -5,7 +5,6 @@
 ** unsetenv
 */
 
-#include "my.h"
 #include "minishell.h"
 
 int initialise_unsetenvv(char *line, char **envp)
@@ -21,6 +20,5 @@ int initialise_unsetenvv(char *line, char **envp)
                 break;
             }
     }
-    printf("%d", line_int);
     return (1);
 }

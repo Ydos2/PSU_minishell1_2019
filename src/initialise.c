@@ -5,7 +5,6 @@
 ** initialise
 */
 
-#include "my.h"
 #include "minishell.h"
 
 mini_t *initialise_var_start(mini_t *mini)

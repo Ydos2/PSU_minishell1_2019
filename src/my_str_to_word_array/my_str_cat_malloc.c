@@ -5,7 +5,6 @@
 ** my_str_cat_malloc
 */
 
-#include "my.h"
 #include "minishell.h"
 
 int my_strlen_protect(char *str)

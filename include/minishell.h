@@ -7,6 +7,10 @@
 
 #ifndef LS_H_
 #define LS_H_
+#include <stddef.h>
+#include <stdarg.h>
+#include <string.h>
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

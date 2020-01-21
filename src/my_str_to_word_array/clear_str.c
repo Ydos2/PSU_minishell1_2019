@@ -5,7 +5,6 @@
 ** clear_str
 */
 
-#include "my.h"
 #include "minishell.h"
 
 char *my_clear_begin(char *str)

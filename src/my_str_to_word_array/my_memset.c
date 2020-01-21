@@ -5,7 +5,6 @@
 ** my_memset
 */
 
-#include "my.h"
 #include "minishell.h"
 
 void my_memset(char *buffer, int size)

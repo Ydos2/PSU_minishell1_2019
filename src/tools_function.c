@@ -5,7 +5,6 @@
 ** tools_function
 */
 
-#include "my.h"
 #include "minishell.h"
 
 int my_strcmpp(char const *s1, char const *s2)

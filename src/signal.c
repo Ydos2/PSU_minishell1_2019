@@ -5,7 +5,6 @@
 ** signal
 */
 
-#include "my.h"
 #include "minishell.h"
 
 void set_signal_Handler(int signalValue)

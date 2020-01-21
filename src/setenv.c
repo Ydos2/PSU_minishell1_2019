@@ -5,7 +5,6 @@
 ** setenv
 */
 
-#include "my.h"
 #include "minishell.h"
 
 int initialise_setenvv(char *line)
