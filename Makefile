@@ -22,6 +22,7 @@ SRC     =	src/initialise.c										\
 			src/my_str_to_word_array/clear_str.c					\
 			src/stock_env.c											\
 			src/execute.c											\
+			src/line_formatting.c									\
 
 OBJ     =	$(SRC:.c=.o) 			\
 

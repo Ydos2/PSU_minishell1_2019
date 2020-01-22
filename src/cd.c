@@ -7,14 +7,14 @@
 
 #include "minishell.h"
 
-int initialise_cd(char *line, char **envp)
+int initialise_cd(char *line, char **envp, int space)
 {
     int a = 0;
     char *path;
 
-    if (line[3] == '\0')
+    if (line[space+3] == '\0')
         path = get_cd_solo(line, envp);
-    else if (line[3] == '-')
+    else if (line[space+3] == '-')
         path = get_old_cd(line);
     else
         path = get_path(line);

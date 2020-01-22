@@ -7,16 +7,16 @@
 
 #include "minishell.h"
 
-int set_ex(mini_t *mini, char *line)
+int set_ex(mini_t *mini, char *line, int space)
 {
     char *path = NULL;
     int nbr = 0;
 
-    for (int i = 2; line[i] != '\0'; i++, nbr++)
+    for (int i = space; line[i] != '\0'; i++, nbr++)
         if (line[i] == ' ')
             break;
     path = malloc(sizeof(char) * nbr);
-    for (int i = 0, j = 2; nbr != 0; i++, j++, nbr--)
+    for (int i = 0, j = space; nbr != 0; i++, j++, nbr--)
         path[i] = line[j];
     mini->flag = my_str_to_word_array(line);
     initialise_ex(mini, path);

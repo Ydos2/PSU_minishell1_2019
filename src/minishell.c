@@ -46,38 +46,41 @@ int initialise_shell(char **argv, mini_t *mini)
 int get_argument(mini_t *mini, char *line)
 {
     int i = 0;
+    int space = set_line_formatting(line);
 
-    if (line[0] == '.' && line[1] == '/')
-        i = set_ex(mini, line);
-    if (line[0] == 'e' && line[1] == 'x' &&
-    line[2] == 'i' && line[3] == 't')
+    if (line[space+0] == '.' && line[space+1] == '/')
+        i = set_ex(mini, line, space);
+    if ((line[space+0] == 'e' && line[space+1] == 'x' &&
+    line[space+2] == 'i' && line[space+3] == 't') && (line[space+4] == ' '
+    || line[space+4] == '\0'))
         i = set_exit(mini, line);
-    if (line[0] == 'c' && line[1] == 'd')
-        if (line[2] == ' ' || line[2] == '\0')
-            i = initialise_cd(line, mini->envp);
-    if (line[0] == 's' && line[1] == 'e' && line[2] == 't'
-        && line[3] == 'e' && line[4] == 'n' && line[5] == 'v')
+    if (line[space+0] == 'c' && line[space+1] == 'd')
+        if (line[space+2] == ' ' || line[space+2] == '\0')
+            i = initialise_cd(line, mini->envp, space);
+    if (line[space+0] == 's' && line[space+1] == 'e' && line[space+2] == 't' &&
+    line[space+3] == 'e' && line[space+4] == 'n' && line[space+5] == 'v' &&
+    line[space+6] == ' ')
         i = initialise_setenvv(line, mini);
-    if (line[0] == 'u' && line[1] == 'n' && line[2] == 's'
-    && line[3] == 'e' && line[4] == 't' && line[5] == 'e'
-    && line[6] == 'n' && line[7] == 'v')
+    if (line[space+0] == 'u' && line[space+1] == 'n' && line[space+2] == 's'
+    && line[space+3] == 'e' && line[space+4] == 't' && line[space+5] == 'e'
+    && line[space+6] == 'n' && line[space+7] == 'v' && line[space+8] == ' ')
         i = initialise_unsetenvv(line, mini->envp, mini);
-    if ((my_strcmpp(line, "env")) == 0)
+    if (line[space+0] == 'e' && line[space+1] == 'n' && line[space+2] == 'v')
         i = initialise_envv(mini->envp);
     if (i == 1)
         return (0);
-    set_other_command(mini, line, mini->envp);
+    set_other_command(mini, line, mini->envp, space);
     return (0);
 }
 
-void set_other_command(mini_t *mini, char *line, char **envp)
+void set_other_command(mini_t *mini, char *line, char **envp, int space)
 {
     char *path = NULL;
 
-    if (line[0] == '.' && line[1] == '/') {
+    if (line[space+0] == '.' && line[space+1] == '/') {
         path = set_path(line, envp, mini);
         set_binarie(mini, path, envp);
-    } else if (line[0] != '\0') {
+    } else if (line[space+0] != '\0') {
         mini->flag = my_str_to_word_array(line);
         line = get_unix_arg(mini, line);
         path = set_path(line, envp, mini);

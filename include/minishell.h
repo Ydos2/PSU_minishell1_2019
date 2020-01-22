@@ -35,12 +35,14 @@ void my_free_array(char **array);
 // initialise.c
 mini_t *initialise_var_start(mini_t *mini);
 int set_exit(mini_t *mini, char *line);
+int get_exit(char **flag, int nbr);
+void draw_exit(mini_t *mini, char **flag, int nbr);
 
 // minishell.c
 int initialise_minishell(int argc, char **argv, mini_t *mini, char **envp);
 int initialise_shell(char **argv, mini_t *mini);
 int get_argument(mini_t *mini, char *line);
-void set_other_command(mini_t *mini, char *line, char **envp);
+void set_other_command(mini_t *mini, char *line, char **envp, int space);
 void set_command_not_find(char *line);
 
 // tools_fonction.c
@@ -51,7 +53,7 @@ void my_putchar(char c);
 int my_strcmp_equal(char *s1, char *s2);
 
 // cd.c
-int initialise_cd(char *line, char **envp);
+int initialise_cd(char *line, char **envp, int space);
 char *get_path(char *line);
 char *get_cd_solo(char *line, char **envp);
 char *get_old_cd(char *line);
@@ -109,7 +111,10 @@ char **new_line(char *str, char **copy_env, char *path, int i);
 char **stock_env(char **env, int size, char *str, char *path);
 
 // execute.c
-int set_ex(mini_t *mini, char *line);
+int set_ex(mini_t *mini, char *line, int space);
 void initialise_ex(mini_t *mini, char *path);
+
+// line_formatting.c
+int set_line_formatting(char *line);
 
 #endif /* !LS_H_ */
