@@ -47,6 +47,8 @@ int get_argument(mini_t *mini, char *line)
 {
     int i = 0;
 
+    if (line[0] == '.' && line[1] == '/')
+        i = set_ex(mini, line);
     if (line[0] == 'e' && line[1] == 'x' &&
     line[2] == 'i' && line[3] == 't')
         i = set_exit(mini, line);

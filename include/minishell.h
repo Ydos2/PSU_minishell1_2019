@@ -108,4 +108,8 @@ char **copy_line(char **copy_env, int i, char *str, char *path);
 char **new_line(char *str, char **copy_env, char *path, int i);
 char **stock_env(char **env, int size, char *str, char *path);
 
+// execute.c
+int set_ex(mini_t *mini, char *line);
+void initialise_ex(mini_t *mini, char *path);
+
 #endif /* !LS_H_ */
