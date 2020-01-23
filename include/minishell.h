@@ -25,6 +25,7 @@ typedef struct mini
     int ret_nbr;
     int i;
     int j;
+    int space;
     char **flag;
     char **envp;
 } mini_t;

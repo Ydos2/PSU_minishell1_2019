@@ -60,6 +60,8 @@ int my_strlen(char const *str)
 {
     char i = 0;
 
+    if (str == NULL)
+        return (0);
     for (; str[i] != '\0'; i++);
     return (i);
 }

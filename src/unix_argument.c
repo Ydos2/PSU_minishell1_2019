@@ -30,12 +30,12 @@ char *get_unix_arg(mini_t *mini, char *line)
     int i = 0;
     int j = 0;
 
-    for (i = 0; line[i] != '\0'; i++);
+    for (int k = mini->space; line[k] != '\0'; k++, i++);
     arg_line = malloc(sizeof(char) * i);
-    for (j = 0; line[j] != '\0'; j++) {
-        if (line[j] == ' ')
+    for (int k = mini->space; j != i; j++, k++) {
+        if (line[k] == ' ')
             break;
-        arg_line[j] = line[j];
+        arg_line[j] = line[k];
     }
     return (arg_line);
 }

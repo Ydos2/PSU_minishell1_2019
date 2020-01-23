@@ -28,8 +28,12 @@ char *my_len_str(char *str)
 
     for (; str[i] != '\0'; i++);
     len_str = malloc(sizeof(char) * i);
-    for (int j = 0; j != i-1; j++)
-        len_str[j] = str[j];
+    for (int j = 0; j != i - 1; j++) {
+        if (str[j] != '\t')
+            len_str[j] = str[j];
+        else
+            len_str[j] = ' ';
+    }
     return (len_str);
 }
 

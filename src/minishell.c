@@ -77,10 +77,8 @@ void set_other_command(mini_t *mini, char *line, char **envp, int space)
 {
     char *path = NULL;
 
-    if (line[space+0] == '.' && line[space+1] == '/') {
-        path = set_path(line, envp, mini);
-        set_binarie(mini, path, envp);
-    } else if (line[space+0] != '\0') {
+    mini->space = space;
+    if (line[space+0] != '\0') {
         mini->flag = my_str_to_word_array(line);
         line = get_unix_arg(mini, line);
         path = set_path(line, envp, mini);
