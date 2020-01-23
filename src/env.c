@@ -19,7 +19,7 @@ char *set_path(char *line, char **envp, mini_t *mini)
         envp[mini->i][4] == '=')
             break;
     }
-    for (int j = 5, k = 0, z = 0; envp[mini->i][j] != '\0'; j++, k++) {
+    for (int j = 5, k = 0; envp[mini->i][j] != '\0'; j++, k++) {
         if (envp[mini->i][j] == ':') {
             path = set_test_path(envp, line, k, mini);
             k = -1;

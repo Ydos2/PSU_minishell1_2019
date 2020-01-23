@@ -37,7 +37,7 @@ MAIN_SRC    =    src/main.c			\
 
 MAIN_OBJ    =    $(MAIN_SRC:.c=.o)	\
 
-CFLAGS    =    -I./include -Wextra -g3
+CFLAGS    =    -I./include -Wextra -g3 -W -Wall -pedantic
 
 TARGET    =		mysh		\
 

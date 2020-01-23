@@ -39,7 +39,7 @@ char *my_len_str(char *str)
 
 int my_putstr(char const *str)
 {
-    char i = 0;
+    int i = 0;
 
     for (; str[i] != '\0'; i++)
         my_putchar(str[i]);

@@ -7,20 +7,20 @@
 
 #include "minishell.h"
 
-int initialise_minishell(int argc, char **argv, mini_t *mini, char **envp)
+int initialise_minishell(mini_t *mini, char **envp)
 {
     signal(SIGINT, set_signal_Handler);
     mini->envp = envp;
 
     while (1) {
-        initialise_shell(argv, mini);
+        initialise_shell(mini);
         if (mini->quit != 0)
             break;
     }
     return (0);
 }
 
-int initialise_shell(char **argv, mini_t *mini)
+int initialise_shell(mini_t *mini)
 {
     char *line = NULL;
     size_t len = 0;
@@ -54,9 +54,9 @@ int get_argument(mini_t *mini, char *line)
     line[space+2] == 'i' && line[space+3] == 't') && (line[space+4] == ' '
     || line[space+4] == '\0'))
         i = set_exit(mini, line);
-    if (line[space+0] == 'c' && line[space+1] == 'd')
-        if (line[space+2] == ' ' || line[space+2] == '\0')
-            i = initialise_cd(line, mini->envp, space);
+    if ((line[space+0] == 'c' && line[space+1] == 'd') &&
+    (line[space+2] == ' ' || line[space+2] == '\0'))
+        i = initialise_cd(line, mini->envp, space);
     if (line[space+0] == 's' && line[space+1] == 'e' && line[space+2] == 't' &&
     line[space+3] == 'e' && line[space+4] == 'n' && line[space+5] == 'v' &&
     line[space+6] == ' ')

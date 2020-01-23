@@ -11,11 +11,10 @@ char *my_clear_begin(char *str)
 {
     int i = 0;
 
-    while (str && str[i]) {
+    for (; str && str[i]; i++)
         if (str[i] != ' ')
             return &str[i];
-        i++;
-    }
+    return (str);
 }
 
 char *my_clear_space(char *str)
@@ -58,7 +57,7 @@ char *my_clear_str(char *str)
 
 int my_strlen(char const *str)
 {
-    char i = 0;
+    int i = 0;
 
     if (str == NULL)
         return (0);

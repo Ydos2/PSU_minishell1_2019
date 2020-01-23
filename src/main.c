@@ -12,10 +12,10 @@ int main(int argc, char **argv, char **envp)
     mini_t *mini = NULL;
     int quit_val = 0;
 
-    if (argc != 1)
+    if (argc != 1 && argv)
         return (84);
     mini = initialise_var_start(mini);
-    if (initialise_minishell(argc, argv, mini, envp) == 84)
+    if (initialise_minishell(mini, envp) == 84)
         return (84);
     write(1, "exit\n", 5);
     if (mini->flag != NULL)

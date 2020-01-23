@@ -40,8 +40,8 @@ int get_exit(char **flag, int nbr);
 void draw_exit(mini_t *mini, char **flag, int nbr);
 
 // minishell.c
-int initialise_minishell(int argc, char **argv, mini_t *mini, char **envp);
-int initialise_shell(char **argv, mini_t *mini);
+int initialise_minishell(mini_t *mini, char **envp);
+int initialise_shell(mini_t *mini);
 int get_argument(mini_t *mini, char *line);
 void set_other_command(mini_t *mini, char *line, char **envp, int space);
 void set_command_not_find(char *line);
@@ -56,13 +56,11 @@ int my_strcmp_equal(char *s1, char *s2);
 // cd.c
 int initialise_cd(char *line, char **envp, int space);
 char *get_path(char *line);
-char *get_cd_solo(char *line, char **envp);
-char *get_old_cd(char *line);
+char *get_cd_solo(char **envp);
 
 // unix_argument.c
 int set_unix(mini_t *mini, char *line, char **envp);
 char *get_unix_arg(mini_t *mini, char *line);
-void set_binarie(mini_t *mini, char *line, char **envp);
 
 // env.c
 char *set_path(char *line, char **envp, mini_t *mini);
@@ -83,7 +81,7 @@ char **my_unset(char **env, int i);
 char **can_i_remove(char **env, char *del);
 
 // signal.c
-void set_signal_Handler(int signalValue);
+void set_signal_Handler();
 
 // my_str_to_word_array.c
 char **my_str_to_word_array(char *str);

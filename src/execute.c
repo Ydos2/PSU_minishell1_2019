@@ -26,14 +26,13 @@ int set_ex(mini_t *mini, char *line, int space)
 void initialise_ex(mini_t *mini, char *path)
 {
     pid_t pid = 0;
-    pid_t j = 0;
     int arg = 0;
 
     pid = fork();
     if (pid == 0)
         execve(path, mini->flag, mini->envp);
     else if (pid > 0)
-        j = waitpid(pid, &arg, 0);
+        waitpid(pid, &arg, 0);
     if (WIFSIGNALED(arg)) {
         my_putstr(strsignal(WTERMSIG(arg)));
         write(1, " (core dumped)\n", 15);
