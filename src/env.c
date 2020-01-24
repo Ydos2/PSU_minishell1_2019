@@ -11,14 +11,9 @@ char *set_path(char *line, char **envp, mini_t *mini)
 {
     char *path = NULL;
 
-    mini->i = 0;
     mini->j = 5;
-    for (mini->i = 0; envp[mini->i] != NULL; mini->i++) {
-        if (envp[mini->i][0] == 'P' && envp[mini->i][1] == 'A' &&
-        envp[mini->i][2] == 'T' && envp[mini->i][3] == 'H' &&
-        envp[mini->i][4] == '=')
-            break;
-    }
+    if (get_env_path(envp, mini) == 0)
+        return (NULL);
     for (int j = 5, k = 0; envp[mini->i][j] != '\0'; j++, k++) {
         if (envp[mini->i][j] == ':') {
             path = set_test_path(envp, line, k, mini);
@@ -28,6 +23,18 @@ char *set_path(char *line, char **envp, mini_t *mini)
             break;
     }
     return (path);
+}
+
+int get_env_path(char **envp, mini_t *mini)
+{
+    for (mini->i = 0; envp[mini->i] != NULL; mini->i++) {
+        if (envp[mini->i][0] == 'P' && envp[mini->i][1] == 'A' &&
+        envp[mini->i][2] == 'T' && envp[mini->i][3] == 'H' &&
+        envp[mini->i][4] == '=') {
+            return (1);
+        }
+    }
+    return (0);
 }
 
 char *set_test_path(char **envp, char *line, int k, mini_t *mini)

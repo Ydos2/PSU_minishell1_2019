@@ -47,7 +47,7 @@ TEST_OBJ     =     $(TEST_SRC:.c=.o)
 
 TEST_TARGET     =     unit_tests
 
-LDFLAGS     =     -lcriterion -lgcov
+LFLAGS     =     -lcriterion -lgcov
 
 all: $(TARGET) ## Build the project
 
@@ -61,7 +61,7 @@ build: $(OBJ) $(MAIN_OBJ) ## Compile the project
 	@printf "\e[1;3;5;32m▀▄▀▄▀▄ Link all object ▄▀▄▀▄▀\e[0m\n"
 
 %.o : %.c
-	@$(CC) $(LDFLAGS) $(CFLAGS) -c $< -o $@
+	@$(CC) $(LFLAGS) $(CFLAGS) -c $< -o $@
 	@printf "[\e[1;34m-Compiled-\e[0m] % 41s\n" $@ | tr ' ' '.'
 
 clean: ## Clean the useless file
@@ -76,10 +76,10 @@ fclean: clean ## Clean the project
 re:    fclean all ## Clean then compile
 
 tests_build: $(OBJ) $(TEST_OBJ) ## Build tests
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(TEST_OBJ) -o $(TEST_TARGET)
+	$(CC) $(CFLAGS) $(LFLAGS) $(OBJ) $(TEST_OBJ) -o $(TEST_TARGET)
 
 tests_run: ## Launch tests
-	@$(CC) -o unit_tests $(LDFLAGS) $(SRC) $(TEST_SRC) $(CFLAGS)
+	@$(CC) -o unit_tests $(LFLAGS) $(SRC) $(TEST_SRC) $(CFLAGS)
 	@./$(TEST_TARGET)
 	@gcovr --exclude tests/
 

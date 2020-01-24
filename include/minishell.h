@@ -64,6 +64,7 @@ char *get_unix_arg(mini_t *mini, char *line);
 
 // env.c
 char *set_path(char *line, char **envp, mini_t *mini);
+int get_env_path(char **envp, mini_t *mini);
 char *set_test_path(char **envp, char *line, int k, mini_t *mini);
 int initialise_envv(char **envp);
 
