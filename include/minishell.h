@@ -29,6 +29,8 @@ typedef struct mini
     int space;
     char **flag;
     char **envp;
+    char *cd_old;
+    char *cd_new;
 } mini_t;
 
 // main.c
@@ -55,9 +57,11 @@ void my_putchar(char c);
 int my_strcmp_equal(char *s1, char *s2);
 
 // cd.c
-int initialise_cd(char *line, char **envp, int space);
-char *get_path(char *line);
-char *get_cd_solo(char **envp);
+int initialise_cd(char *line, char **envp, int space, mini_t *mini);
+char *get_path(char *line, mini_t *mini);
+char *get_cd_solo(char **envp, mini_t *mini);
+void set_file_directory(char *str);
+void set_cd_less(mini_t *mini);
 
 // unix_argument.c
 int set_unix(mini_t *mini, char *line, char **envp);
