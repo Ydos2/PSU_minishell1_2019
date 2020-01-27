@@ -56,7 +56,7 @@ int get_argument(mini_t *mini, char *line)
         i = set_exit(mini, line);
     if ((line[space+0] == 'c' && line[space+1] == 'd') &&
     (line[space+2] == ' ' || line[space+2] == '\0'))
-        i = initialise_cd(line, mini->envp, space);
+        i = initialise_cd(line, mini->envp, space, mini);
     if (line[space+0] == 's' && line[space+1] == 'e' && line[space+2] == 't' &&
     line[space+3] == 'e' && line[space+4] == 'n' && line[space+5] == 'v' &&
     line[space+6] == ' ')

@@ -7,26 +7,25 @@
 
 #include "minishell.h"
 
-int initialise_cd(char *line, char **envp, int space)
+int initialise_cd(char *line, char **envp, int space, mini_t *mini)
 {
     int a = 0;
-    char *path;
+    char *path = NULL;
 
     if (line[space+3] == '\0')
-        path = get_cd_solo(envp);
-    else if (line[space+3] == '-')
-        path = NULL;
-    else
-        path = get_path(line);
+        path = get_cd_solo(envp, mini);
+    else if (line[space+3] == '-') {
+        set_cd_less(mini);
+        return (1);
+    } else
+        path = get_path(line, mini);
     a = chdir(path);
-    if (a == -1) {
-        my_putstr(path);
-        write(1, ": No such file or directory.\n", 29);
-    }
+    if (a == -1)
+        set_file_directory(path);
     return (1);
 }
 
-char *get_path(char *line)
+char *get_path(char *line, mini_t *mini)
 {
     char *path;
     int i = 0, z = 0;
@@ -41,15 +40,19 @@ char *get_path(char *line)
             path[j] = line[k];
             j++;
         }
+    mini->cd_old = malloc(sizeof(char) * my_strlen(mini->cd_new));
+    for (int i = 0; mini->cd_new[i] != '\0'; i++)
+        mini->cd_old[i] = mini->cd_new[i];
+    mini->cd_new = malloc(sizeof(char) * my_strlen(path));
+    for (int i = 0; path[i] != '\0'; i++)
+        mini->cd_new[i] = path[i];
     return (path);
 }
 
-char *get_cd_solo(char **envp)
+char *get_cd_solo(char **envp, mini_t *mini)
 {
     char *path = NULL;
-    int i = 0;
-    int j = 0;
-    int k = 0;
+    int i = 0, j = 0, k = 0;
 
     for (i = 0; envp[i] != NULL; i++) {
         if (envp[i][0] == 'H' && envp[i][1] == 'O' &&
@@ -61,5 +64,46 @@ char *get_cd_solo(char **envp)
     path = malloc(sizeof(char) * j);
     for (j = 0, k = 5; envp[i][k] != '\0'; j++, k++)
         path[j] = envp[i][k];
+    mini->cd_old = malloc(sizeof(char) * my_strlen(mini->cd_new));
+    for (int i = 0; mini->cd_new[i] != '\0'; i++)
+        mini->cd_old[i] = mini->cd_new[i];
+    mini->cd_new = malloc(sizeof(char) * my_strlen(path));
+    for (int i = 0; path[i] != '\0'; i++)
+        mini->cd_new[i] = path[i];
     return (path);
+}
+
+void set_file_directory(char *str)
+{
+    struct stat sb;
+
+    if (stat(str, &sb) != -1) {
+        if (S_ISDIR(sb.st_mode) == 0) {
+            my_putstr(str);
+            write(1, ": Not a directory.\n", 19);
+        }
+    } else {
+        my_putstr(str);
+        write(1, ": No such file or directory.\n", 29);
+    }
+}
+
+void set_cd_less(mini_t *mini)
+{
+    char *port = NULL;
+
+    if (mini->cd_old == NULL) {
+        write(1, ": No such file or directory.\n", 29);
+    } else {
+        chdir(mini->cd_old);
+        port = malloc(sizeof(char) * my_strlen(mini->cd_new));
+        for (int i = 0; mini->cd_new[i] != '\0'; i++)
+            port[i] = mini->cd_new[i];
+        mini->cd_new = malloc(sizeof(char) * my_strlen(mini->cd_old));
+        for (int i = 0; mini->cd_old[i] != '\0'; i++)
+            mini->cd_new[i] = mini->cd_old[i];
+        mini->cd_old = malloc(sizeof(char) * my_strlen(port));
+        for (int i = 0; port[i] != '\0'; i++)
+            mini->cd_old[i] = port[i];
+    }
 }

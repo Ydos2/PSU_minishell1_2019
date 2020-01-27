@@ -13,6 +13,8 @@ mini_t *initialise_var_start(mini_t *mini)
     mini->quit = 0;
     mini->ret_nbr = 0;
     mini->flag = NULL;
+    mini->cd_old = NULL;
+    mini->cd_new = getcwd(NULL, 0);
     return (mini);
 }
 
