@@ -19,7 +19,8 @@ int set_ex(mini_t *mini, char *line, int space)
     for (int i = 0, j = space; nbr != 0; i++, j++, nbr--)
         path[i] = line[j];
     mini->flag = my_str_to_word_array(line);
-    initialise_ex(mini, path);
+    if (set_file_type(path) == 0)
+        initialise_ex(mini, path);
     return (1);
 }
 
@@ -38,4 +39,20 @@ void initialise_ex(mini_t *mini, char *path)
         write(1, " (core dumped)\n", 15);
     }
     kill(pid, SIGKILL);
+}
+
+int set_file_type(char *str)
+{
+    struct stat sb;
+
+    if (stat(str, &sb) != -1) {
+        if (S_ISREG(sb.st_mode) != 0) {
+            return (0);
+        } else {
+            my_putstr(str);
+            write(1, ": Permission denied.\n", 21);
+            return (1);
+        }
+    }
+    return (0);
 }

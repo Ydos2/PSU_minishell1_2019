@@ -18,6 +18,7 @@
 #include <sys/types.h>
 #include <signal.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 
 typedef struct mini
 {
@@ -113,6 +114,7 @@ char **stock_env(char **env, int size, char *str, char *path);
 // execute.c
 int set_ex(mini_t *mini, char *line, int space);
 void initialise_ex(mini_t *mini, char *path);
+int set_file_type(char *str);
 
 // line_formatting.c
 int set_line_formatting(char *line);
