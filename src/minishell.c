@@ -48,25 +48,18 @@ int get_argument(mini_t *mini, char *line)
     int i = 0;
     int space = set_line_formatting(line);
 
-    if (line[space+0] == '.' && line[space+1] == '/')
+    if (my_strncmp(line, "./", 2, space) == 0)
         i = set_ex(mini, line, space);
-    if ((line[space+0] == 'e' && line[space+1] == 'x' &&
-    line[space+2] == 'i' && line[space+3] == 't') && (line[space+4] == ' '
-    || line[space+4] == '\0'))
+    if (my_strncmp(line, "exit", 4, space) == 0)
         i = set_exit(mini, line);
-    if ((line[space+0] == 'c' && line[space+1] == 'd') &&
-    (line[space+2] == ' ' || line[space+2] == '\0'))
-        i = initialise_cd(line, mini->envp, space, mini);
-    if (line[space+0] == 's' && line[space+1] == 'e' && line[space+2] == 't' &&
-    line[space+3] == 'e' && line[space+4] == 'n' && line[space+5] == 'v' &&
-    line[space+6] == ' ')
+    if (my_strncmp(line, "cd", 2, space) == 0)
+        i = initialise_cd(line, mini->envp, mini);
+    if (my_strncmp(line, "setenv", 6, space) == 0)
         i = initialise_setenvv(line, mini);
-    if (line[space+0] == 'u' && line[space+1] == 'n' && line[space+2] == 's'
-    && line[space+3] == 'e' && line[space+4] == 't' && line[space+5] == 'e'
-    && line[space+6] == 'n' && line[space+7] == 'v' && line[space+8] == ' ')
+    if (my_strncmp(line, "unsetenv", 8, space) == 0)
         i = initialise_unsetenvv(line, mini->envp, mini);
-    if (line[space+0] == 'e' && line[space+1] == 'n' && line[space+2] == 'v')
-        i = initialise_envv(mini->envp);
+    if (my_strncmp(line, "env", 3, space) == 0)
+        i = initialise_envv(mini->envp, line);
     if (i == 1)
         return (0);
     set_other_command(mini, line, mini->envp, space);

@@ -60,8 +60,12 @@ char *set_test_path(char **envp, char *line, int k, mini_t *mini)
         return (NULL);
 }
 
-int initialise_envv(char **envp)
+int initialise_envv(char **envp, char *line)
 {
+    char **array = my_str_to_word_array(line);
+
+    if (array[1] != NULL)
+        return (1);
     for (int i = 0; envp[i] != NULL; i++) {
         my_putstr(envp[i]);
         write(1, "\n", 1);

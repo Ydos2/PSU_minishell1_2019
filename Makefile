@@ -23,6 +23,7 @@ SRC     =	src/initialise.c										\
 			src/stock_env.c											\
 			src/execute.c											\
 			src/line_formatting.c									\
+			src/my_strncmp.c										\
 
 OBJ     =	$(SRC:.c=.o) 			\
 

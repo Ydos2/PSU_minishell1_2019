@@ -7,14 +7,15 @@
 
 #include "minishell.h"
 
-int initialise_cd(char *line, char **envp, int space, mini_t *mini)
+int initialise_cd(char *line, char **envp, mini_t *mini)
 {
     int a = 0;
     char *path = NULL;
+    char **array = my_str_to_word_array(line);
 
-    if (line[space+3] == '\0')
+    if (array[1] == NULL)
         path = get_cd_solo(envp, mini);
-    else if (line[space+3] == '-') {
+    else if (my_strncmp(array[1], "-", 1, 0) == 0) {
         set_cd_less(mini);
         return (1);
     } else
@@ -27,26 +28,15 @@ int initialise_cd(char *line, char **envp, int space, mini_t *mini)
 
 char *get_path(char *line, mini_t *mini)
 {
-    char *path;
-    int i = 0, z = 0;
+    char **array = my_str_to_word_array(line);
 
-    for (; line[z] != '\0'; z++)
-        if (line[i] != ' ')
-            i++;
-    i = i - 2;
-    path = malloc(sizeof(char) * i);
-    for (int j = 0, k = 2; k != z; k++)
-        if (line[k] != ' ') {
-            path[j] = line[k];
-            j++;
-        }
     mini->cd_old = malloc(sizeof(char) * my_strlen(mini->cd_new));
     for (int i = 0; mini->cd_new[i] != '\0'; i++)
         mini->cd_old[i] = mini->cd_new[i];
-    mini->cd_new = malloc(sizeof(char) * my_strlen(path));
-    for (int i = 0; path[i] != '\0'; i++)
-        mini->cd_new[i] = path[i];
-    return (path);
+    mini->cd_new = malloc(sizeof(char) * my_strlen(array[1]));
+    for (int i = 0; array[1][i] != '\0'; i++)
+        mini->cd_new[i] = array[1][i];
+    return (array[1]);
 }
 
 char *get_cd_solo(char **envp, mini_t *mini)

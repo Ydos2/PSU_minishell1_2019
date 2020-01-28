@@ -57,7 +57,7 @@ void my_putchar(char c);
 int my_strcmp_equal(char *s1, char *s2);
 
 // cd.c
-int initialise_cd(char *line, char **envp, int space, mini_t *mini);
+int initialise_cd(char *line, char **envp, mini_t *mini);
 char *get_path(char *line, mini_t *mini);
 char *get_cd_solo(char **envp, mini_t *mini);
 void set_file_directory(char *str);
@@ -71,7 +71,7 @@ char *get_unix_arg(mini_t *mini, char *line);
 char *set_path(char *line, char **envp, mini_t *mini);
 int get_env_path(char **envp, mini_t *mini);
 char *set_test_path(char **envp, char *line, int k, mini_t *mini);
-int initialise_envv(char **envp);
+int initialise_envv(char **envp, char *line);
 
 // setenv.c
 int initialise_setenvv(char *line, mini_t *mini);
@@ -122,5 +122,8 @@ int set_file_type(char *str);
 
 // line_formatting.c
 int set_line_formatting(char *line);
+
+// my_strncmp.c
+int my_strncmp(char *s1, char *s2, int n, int space);
 
 #endif /* !LS_H_ */

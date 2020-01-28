@@ -11,6 +11,8 @@ int set_line_formatting(char *line)
 {
     int space = 0;
 
+    if (line == NULL)
+        return (0);
     for (; line[space] != '\0'; space++)
         if (line[space] != ' ')
             break;

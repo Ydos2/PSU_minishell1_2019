@@ -16,6 +16,7 @@ int initialise_unsetenvv(char *line, char **envp, mini_t *mini)
         envp = can_i_remove(envp, array[1]);
         mini->envp = envp;
     }
+    write(1, "unsetenv: Too few arguments.\n", 29);
     return (1);
 }
 
@@ -34,11 +35,11 @@ char **copy_env_unset(char **env, char **copy_env, int i)
     int j = 0;
     int k = 0;
 
-    for (int l = 0; env[l] != NULL; l++) {
-        if (l != i) {
-            for (k = 0; env[l][k] != '\0'; k++);
+    for (int nbr = 0; env[nbr] != NULL; nbr++) {
+        if (nbr != i) {
+            for (k = 0; env[nbr][k] != '\0'; k++);
             copy_env[j] = malloc(sizeof(char) * (k + 1));
-            copy_env[j] = copy_norm(env[l], copy_env[j]);
+            copy_env[j] = copy_norm(env[nbr], copy_env[j]);
             j++;
         }
     }

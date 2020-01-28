@@ -12,6 +12,10 @@ int initialise_setenvv(char *line, mini_t *mini)
     char **array = NULL;
 
     array = my_str_to_word_array(line);
+    if (array[1] == NULL)
+        return (initialise_envv(mini->envp, line));
+    else if (array[3] != NULL)
+        write(1, "setenv: Too many arguments.\n", 28);
     mini->envp = can_i_replace(array[2], mini->envp, array[1]);
     return (1);
 }
