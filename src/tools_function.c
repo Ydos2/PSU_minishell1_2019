@@ -23,9 +23,11 @@ int my_strcmpp(char const *s1, char const *s2)
 
 char *my_len_str(char *str)
 {
-    char *len_str;
+    char *len_str = NULL;
     int i = 0;
 
+    if (str[0] == '\0')
+        return (NULL);
     for (; str[i] != '\0'; i++);
     len_str = malloc(sizeof(char) * i);
     for (int j = 0; j != i - 1; j++) {

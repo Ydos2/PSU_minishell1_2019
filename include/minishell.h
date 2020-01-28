@@ -75,14 +75,14 @@ int initialise_envv(char **envp, char *line);
 
 // setenv.c
 int initialise_setenvv(char *line, mini_t *mini);
-char *copy_str(char *str, char *copy, int *j);
-char **replace_this(char **env, char *path, char *replace, int *i);
-char **can_i_replace(char *path, char **env, char *replace);
+char *set_copy_str(char *str, char *copy, int *j);
+char **set_replace_this(char **env, char *path, char *replace, int *i);
+char **set_can_i_replace(char *path, char **env, char *replace);
 
 // unsetenv.c
 int initialise_unsetenvv(char *line, char **envp, mini_t *mini);
-char *copy_norm(char *env, char *copy_env);
-char **copy_env_unset(char **env, char **copy_env, int i);
+char *set_copy_norm(char *env, char *copy_env);
+char **set_copy_env_unset(char **env, char **copy_env, int i);
 char **my_unset(char **env, int i);
 char **can_i_remove(char **env, char *del);
 
@@ -110,10 +110,10 @@ char *my_clear_str(char *str);
 int my_strlen(char const *str);
 
 // stock_env.c
-char **norme_stock(char **env, char **copy_env);
-char **copy_line(char **copy_env, int i, char *str, char *path);
-char **new_line(char *str, char **copy_env, char *path, int i);
-char **stock_env(char **env, int size, char *str, char *path);
+char **set_norme_stock(char **env, char **copy_env);
+char **set_copy_line(char **copy_env, int i, char *str, char *path);
+char **set_new_line(char *str, char **copy_env, char *path, int i);
+char **set_stock_env(char **env, int size, char *str, char *path);
 
 // execute.c
 int set_ex(mini_t *mini, char *line, int space);

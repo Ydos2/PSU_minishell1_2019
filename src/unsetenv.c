@@ -15,12 +15,12 @@ int initialise_unsetenvv(char *line, char **envp, mini_t *mini)
     if (array[1] != NULL) {
         envp = can_i_remove(envp, array[1]);
         mini->envp = envp;
-    }
-    write(1, "unsetenv: Too few arguments.\n", 29);
+    } else
+        write(1, "unsetenv: Too few arguments.\n", 29);
     return (1);
 }
 
-char *copy_norm(char *env, char *copy_env)
+char *set_copy_norm(char *env, char *copy_env)
 {
     int i = 0;
 
@@ -30,7 +30,7 @@ char *copy_norm(char *env, char *copy_env)
     return (copy_env);
 }
 
-char **copy_env_unset(char **env, char **copy_env, int i)
+char **set_copy_env_unset(char **env, char **copy_env, int i)
 {
     int j = 0;
     int k = 0;
@@ -39,7 +39,7 @@ char **copy_env_unset(char **env, char **copy_env, int i)
         if (nbr != i) {
             for (k = 0; env[nbr][k] != '\0'; k++);
             copy_env[j] = malloc(sizeof(char) * (k + 1));
-            copy_env[j] = copy_norm(env[nbr], copy_env[j]);
+            copy_env[j] = set_copy_norm(env[nbr], copy_env[j]);
             j++;
         }
     }
@@ -54,7 +54,7 @@ char **my_unset(char **env, int i)
     for (; env[j] != NULL; j++);
     copy_env = malloc(sizeof(char *) * j);
     copy_env[j - 1] = NULL;
-    copy_env = copy_env_unset(env, copy_env, i);
+    copy_env = set_copy_env_unset(env, copy_env, i);
     return (copy_env);
 }
 

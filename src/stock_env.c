@@ -7,7 +7,7 @@
 
 #include "minishell.h"
 
-char **norme_stock(char **env, char **copy_env)
+char **set_norme_stock(char **env, char **copy_env)
 {
     int i = 0;
     int j = 0;
@@ -23,7 +23,7 @@ char **norme_stock(char **env, char **copy_env)
     return (copy_env);
 }
 
-char **copy_line(char **copy_env, int i, char *str, char *path)
+char **set_copy_line(char **copy_env, int i, char *str, char *path)
 {
     int j = 0;
     int k = 0;
@@ -39,7 +39,7 @@ char **copy_line(char **copy_env, int i, char *str, char *path)
     return (copy_env);
 }
 
-char **new_line(char *str, char **copy_env, char *path, int i)
+char **set_new_line(char *str, char **copy_env, char *path, int i)
 {
     int j = 0;
     int k = 0;
@@ -47,13 +47,13 @@ char **new_line(char *str, char **copy_env, char *path, int i)
     for (; str != NULL && str[j] != '\0'; j++);
     for (; path != NULL && path[k] != '\0'; k++);
     copy_env[i] = malloc(sizeof(char) * (j + k + 2));
-    copy_env = copy_line(copy_env, i, str, path);
+    copy_env = set_copy_line(copy_env, i, str, path);
     j = 0;
     k = 0;
     return (copy_env);
 }
 
-char **stock_env(char **env, int size, char *str, char *path)
+char **set_stock_env(char **env, int size, char *str, char *path)
 {
     char **copy_env;
     int i = 0;
@@ -61,8 +61,8 @@ char **stock_env(char **env, int size, char *str, char *path)
     for (; env[i] != NULL; i++);
     copy_env = malloc(sizeof(char *) * (i + size + 1));
     copy_env[i + size] = NULL;
-    copy_env = norme_stock(env, copy_env);
+    copy_env = set_norme_stock(env, copy_env);
     if (str != NULL)
-        copy_env = new_line(str, copy_env, path, i + size - 1);
+        copy_env = set_new_line(str, copy_env, path, i + size - 1);
     return (copy_env);
 }
