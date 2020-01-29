@@ -16,10 +16,10 @@ SRC     =	src/initialise.c										\
 			src/unsetenv.c											\
 			src/setenv.c											\
 			src/signal.c											\
-			src/my_str_to_word_array/my_str_to_word_array.c			\
-			src/my_str_to_word_array/my_str_cat_malloc.c			\
-			src/my_str_to_word_array/my_memset.c					\
-			src/my_str_to_word_array/clear_str.c					\
+			src/my_str_to_word_array.c								\
+			src/my_str_cat_malloc.c									\
+			src/my_memset.c											\
+			src/clear_str.c											\
 			src/stock_env.c											\
 			src/execute.c											\
 			src/line_formatting.c									\
@@ -48,7 +48,7 @@ TEST_OBJ     =     $(TEST_SRC:.c=.o)
 
 TEST_TARGET     =     unit_tests
 
-LFLAGS     =     -lcriterion -lgcov
+TEST_LFLAGS	=	-lcriterion
 
 all: $(TARGET) ## Build the project
 
@@ -76,11 +76,11 @@ fclean: clean ## Clean the project
 
 re:    fclean all ## Clean then compile
 
-tests_build: $(OBJ) $(TEST_OBJ) ## Build tests
-	$(CC) $(CFLAGS) $(LFLAGS) $(OBJ) $(TEST_OBJ) -o $(TEST_TARGET)
-
-tests_run: ## Launch tests
-	@$(CC) -o unit_tests $(LFLAGS) $(SRC) $(TEST_SRC) $(CFLAGS)
+tests_run: CFLAGS += --coverage ## Launch tests
+tests_run: $(OBJ) $(TEST_OBJ)
+	@printf "\e[1;32mFinished compiling sources\e[0m\n"
+	@$(CC) $(CFLAGS) $(OBJ) $(TEST_OBJ) -o $(TEST_TARGET) $(TEST_LFLAGS)
+	@printf "\e[1;3;5;32m▀▄▀▄▀▄ Tests the code ▄▀▄▀▄▀\e[0m\n"
 	@./$(TEST_TARGET)
 	@gcovr --exclude tests/
 
@@ -91,3 +91,5 @@ valgrind: fclean all ## Launch valgrind
 
 help: ## Help for the Makefile
 	@cat $(MAKEFILE_LIST) | sed -En 's/^([a-zA-Z_-]+)\s*:.*##\s?(.*)/\1 "\2"/p' | xargs printf "\033[32m%-30s\033[0m %s\n"
+
+.PHONY:	all build clean fclean re tests_run re_tests valgrind help
