@@ -36,6 +36,8 @@ void initialise_ex(mini_t *mini, char *path)
         waitpid(pid, &arg, 0);
     if (WIFSIGNALED(arg)) {
         my_putstr(strsignal(WTERMSIG(arg)));
+        if (WCOREDUMP(arg))
+            write(1, " (core dumped)", 14);
         write(1, "\n", 1);
     }
     kill(pid, SIGKILL);
