@@ -2,7 +2,7 @@
 The aim of this project is to recreate a shell, it is divided into three parts and this one is the first one.
 
 ## General informations
-Name : my_hunter
+Name : minishell_1
 Author : Mathias Ressort
 
 ## Requirement Package
